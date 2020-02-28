@@ -4,7 +4,11 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import './App.css';
 import clsx from 'clsx';
-
+import TextFieldsIcon from '@material-ui/icons/TextFields';
+import DescriptionIcon from '@material-ui/icons/Description';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import ListIcon from '@material-ui/icons/List';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,17 +29,29 @@ const useStyles = makeStyles(theme => ({
     right: '20px',
     top: '20px',
     width: '80px',
-    height: '150px',
+    height: '180px',
 
   },
   tools:{
     height:'100%',
+    display:'flex',
+    flexDirection:'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+
+    '& svg:hover':{
+      cursor:'pointer'
+    }
   }
 
 }));
 
+
+
 function App() {
   const classes = useStyles();
+
+  // const options =  [TextFieldsIcon,DescriptionIcon,CheckBoxIcon,RadioButtonCheckedIcon,ListIcon]
 
   return (
     <div className={classes.root}>
@@ -43,11 +59,18 @@ function App() {
         <div className={classes.toolsContainer}>
           <Paper className={
            clsx(classes.paper,classes.tools)}>
-            Tools
+            <TextFieldsIcon />
+            <DescriptionIcon /> 
+            <CheckBoxIcon />
+            <RadioButtonCheckedIcon />
+            <ListIcon />
           </Paper>
         </div>
         <Grid className={classes.container}  item xs={8}>
-          <Paper className={classes.paper}>Form</Paper>
+          <Paper className={classes.paper}>
+           <div>Form</div>
+          
+          </Paper>
         </Grid>
       </Grid>
     </div>
