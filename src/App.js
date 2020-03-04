@@ -9,6 +9,9 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import ListIcon from '@material-ui/icons/List';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import TableChartIcon from '@material-ui/icons/TableChart';
+import FormFactory from './FormFactory'
+import Draggable from 'react-draggable';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,8 +53,20 @@ const useStyles = makeStyles(theme => ({
 
 function App() {
   const classes = useStyles();
+  const [component, setComponent] = React.useState([])
 
-  // const options =  [TextFieldsIcon,DescriptionIcon,CheckBoxIcon,RadioButtonCheckedIcon,ListIcon]
+
+  const addComponent  = (type)=> {
+    const newComponents = [...component, type];
+    setComponent(newComponents)
+  }
+
+  const options =  [<TextFieldsIcon onClick={()=> addComponent('textBox')} />,
+    <DescriptionIcon onClick={()=> addComponent('textArea')} />,
+    <CheckBoxIcon onClick={()=> addComponent('checkBox')} />,
+    <RadioButtonCheckedIcon  onClick={()=> addComponent('radio')}/>,
+    <ListIcon onClick={()=> addComponent('list')} />,
+    <TableChartIcon onClick={()=> addComponent('tables')} />,];
 
   return (
     <div className={classes.root}>
@@ -59,17 +74,15 @@ function App() {
         <div className={classes.toolsContainer}>
           <Paper className={
            clsx(classes.paper,classes.tools)}>
-            <TextFieldsIcon />
-            <DescriptionIcon /> 
-            <CheckBoxIcon />
-            <RadioButtonCheckedIcon />
-            <ListIcon />
+            {options.map(o => o)}
           </Paper>
         </div>
-        <Grid className={classes.container}  item xs={8}>
+        <Grid className={classes.container}   item xs={8}>
           <Paper className={classes.paper}>
            <div>Form</div>
-          
+           <Grid  container >
+            {component.map(c=>  <Draggable><Grid className={classes.container}  item sm={6}>{FormFactory(c)}</Grid></Draggable>)}
+            </Grid>
           </Paper>
         </Grid>
       </Grid>
